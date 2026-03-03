@@ -1,8 +1,9 @@
-#!/bin/sh
-
-# Skip if systemd is running.
-if [ -d /run/systemd/system ]; then
-  exit 0
-fi
-
-/usr/libexec/dpkg/dpkg-db-backup
+/var/log/dpkg.log {
+	monthly
+	rotate 12
+	compress
+	delaycompress
+	missingok
+	notifempty
+	create 644 root root
+}
