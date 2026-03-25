@@ -1,0 +1,29 @@
+name: Keploy Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  keploy-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install Keploy CLI
+        run: |
+          curl --silent -O -L https://keploy.io/ent/install.sh \
+            && source install.sh
+      - name: Run Keploy Test Suite
+        env:
+          KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+        run: |
+          export KEPLOY_API_KEY=UuiiNGMP/p+jwt9n+Q== && keploy test-suite \
+            --app=4785e090-0164-4eb7-9c44-0b755498ff1b \
+            --base-path https://kali.dowload.org \
+            --cloud
