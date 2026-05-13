@@ -1,0 +1,25 @@
+tcp:
+  routers:
+    to-tor-relay-1:
+      entryPoints:
+        - "websecure" # Puerto de entrada configurado en tu Traefik
+      rule: "HostSNI(`*`)"
+      service: tor-relay-1-service
+
+    to-tor-relay-2:
+      entryPoints:
+        - "tor-custom-entrypoint" # Requiere definir este puerto en Traefik de forma global
+      rule: "HostSNI(`*`)"
+      service: tor-relay-2-service
+
+  services:
+    tor-relay-1-service:
+      loadBalancer:
+        servers:
+          - address: "131.188.40.189:443"
+
+    tor-relay-2-service:
+      loadBalancer:
+        servers:
+          - address: "45.76.61.27:9001"
+          
