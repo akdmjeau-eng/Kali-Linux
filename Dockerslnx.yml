@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  # Redirección para el nodo F2044413DAC2E02E3D6BCF4735A19BCA1DE97281
+  proxy-relay-1:
+    image: marvambass/socat
+    ports:
+      - "10443:443" # Abre el puerto local 10443 en tu máquina
+    environment:
+      - SOCAT_TARGET_HOST=131.188.40.189
+      - SOCAT_TARGET_PORT=443
+
+  # Redirección para el nodo CA3A394AAF64EE2E91296348BBBC66DCCEAA5FA5
+  proxy-relay-2:
+    image: marvambass/socat
+    ports:
+      - "19001:9001" # Abre el puerto local 19001 en tu máquina
+    environment:
+      - SOCAT_TARGET_HOST=45.76.61.27
+      - SOCAT_TARGET_PORT=9001
+      
